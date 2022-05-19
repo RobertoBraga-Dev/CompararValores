@@ -1,0 +1,42 @@
+﻿@model CompararValores.Models.ComparacaoArquivos
+
+@{
+    ViewData["Title"] = "Comparar Excel";
+}
+
+@if (Model.ValoresFile1.Any() || Model.ValoresFile2.Any())
+{
+    <center><h1>Divergências</h1></center>
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item active">@Html.DisplayFor(model => model.NameFile1)</li>
+                @foreach (var v1 in Model.ValoresFile1)
+                {
+                    <li class="list-group-item">@v1</li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item active">@Html.DisplayFor(model => model.NameFile2)</li>
+                @foreach (var v2 in Model.ValoresFile2)
+                {
+                    <li class="list-group-item">@v2</li>
+                }
+            </ul>
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="alert alert-success" role="alert">
+        Não foram encontradas diferenças!
+    </div>
+}
+
+
+<div>
+    <a asp-action="Index">Voltar</a>
+</div>

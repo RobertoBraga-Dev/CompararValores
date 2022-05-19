@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "Extração de Contas";
+}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Comparar Excel (.xlsx)</h3>
+                <i class="fas fa-file-excel float-right"></i>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form role="form" asp-action="CompararExcel" enctype="multipart/form-data" method="post">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label class="control-label">Excel 1</label>
+                            <span>
+                                <input type="file"
+                                       accept=".xlsx"
+                                       data-max-size="4000000"
+                                       data-max-size-files="4000000"
+                                       style="visibility:hidden; width: 1px;"
+                                       id='compareFile1'
+                                       name='compareFile1' 
+                                       required/>
+                                <button class="btn btn-default" type="button" onclick="$(this).parent().find('input[type=file]').click();">
+                                    <span class="glyphicon glyphicon-download-alt"></span> Escolher arquivo..
+                                </button>
+                            </span>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="compareColumn1" class="control-label">Coluna Excel</label>
+                            <input type="text" name="compareColumn1" class="form-control" required />
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label class="control-label">Excel 2</label>
+                            <span>
+                                <input type="file"
+                                       accept=".xlsx"
+                                       data-max-size="4000000"
+                                       data-max-size-files="4000000"
+                                       style="visibility:hidden; width: 1px;"
+                                       id='compareFile2'
+                                       name='compareFile2' 
+                                       required/>
+                                <button class="btn btn-default" type="button" onclick="$(this).parent().find('input[type=file]').click();">
+                                    <span class="glyphicon glyphicon-download-alt"></span> Escolher arquivo..
+                                </button>
+                            </span>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="compareColumn2" class="control-label">Coluna Excel</label>
+                            <input type="text" name="compareColumn2" class="form-control" required />
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary float-right">Comparar valores</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/jquery.validate.all.min.js"></script>
+
+    <script>
+        $("#compareFile1, #compareFile2, #extrato").change(function () {
+            var source = $(this),
+                names = "",
+                maxSizeFiles = parseInt(source.data('max-size-files'), 10),
+                filesSize = 0;
+
+            $(this.files).each(function (idx, elem) {
+                if (typeof elem !== 'undefined') {
+                    var maxSize = parseInt(source.data('max-size'), 10),
+                        size = elem.size;
+                    filesSize += elem.size;
+
+                    names += "<span class='badge badge-important' style='margin-left: 5px;'>" + elem.name.replace('C:\\fakepath\\', '') + " | " + formatBytes(elem.size) + "</span>"
+                    if (size > maxSize) {
+                        source.files = null;
+                        names = "";
+                        alert("O arquivo '" + elem.name + "' excede o tamanho máximo permitido!\nTamanho máximo permitido: " + formatBytes(maxSize));
+                        return false;
+                    }
+
+                    if (filesSize > maxSizeFiles) {
+                        source.files = null;
+                        names = "";
+                        alert("Os arquivos excedem o tamanho máximo permitido!\nTamanho máximo permitido: " + formatBytes(maxSizeFiles));
+                        return false;
+                    }
+                }
+            });
+
+            source.parent().find('span.badge').remove();
+            source.parent().append(names);
+        });
+
+        function formatBytes(bytes, decimals) {
+            if (bytes == 0) return '0 Bytes';
+            var k = 1024,
+                dm = decimals || 2,
+                sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+                i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+    </script>
+}
