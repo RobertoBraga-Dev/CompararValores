@@ -40,6 +40,7 @@ namespace CompararValores.Controllers
             {
                 if (compfiles.ValoresFile2.Contains(compfiles.ValoresFile1[i]))
                 {
+                    System.Globalization.CultureInfo.CurrentCulture = new System.Globalization.CultureInfo("pt-BR");
                     compfiles.ValoresFile2.Remove(compfiles.ValoresFile1[i]);
                     compfiles.ValoresFile1.RemoveAt(i);
                 }
@@ -56,8 +57,11 @@ namespace CompararValores.Controllers
             {
                 var worksheet = workbook.Worksheet(1);
                 var rows = worksheet.Column(coluna).CellsUsed().Select(l => l.Address.RowNumber);
+
                 foreach (var row in rows)
                 {
+
+
                     if (decimal.TryParse(worksheet.Row(row).Cell(coluna).Value.ToString(), out decimal valor))
                         if (valor < 0)
                             valor = valor * -1;

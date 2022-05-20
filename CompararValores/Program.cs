@@ -1,4 +1,12 @@
+using System.Globalization;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var cultureInfo = new CultureInfo("pt-BR");
+//cultureInfo.NumberFormat.CurrencyDecimalSeparator = ",";
+
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
