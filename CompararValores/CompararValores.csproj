@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\git\imagesharp\ClosedXML\ClosedXML\ClosedXML.csproj" />
+    <ProjectReference Include="..\ClosedXML\ClosedXML.csproj" />
   </ItemGroup>
 
 </Project>

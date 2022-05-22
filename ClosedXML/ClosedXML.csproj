@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0</TargetFrameworks>
+    <LangVersion>8.0</LangVersion>
+    <AssemblyName>ClosedXML</AssemblyName>
+    <PackageId>ClosedXML</PackageId>
+    <Version>0.95.4-pre</Version>
+    <Authors>Francois Botha, Aleksei Pankratev, Manuel de Leon, Amir Ghezelbash</Authors>
+    <Owners>Francois Botha, Aleksei Pankratev</Owners>
+    <Company />
+    <Product>ClosedXML</Product>
+    <PackageReleaseNotes>See https://github.com/ClosedXML/ClosedXML/releases/tag/$(productVersion)</PackageReleaseNotes>
+    <Description>ClosedXML is a .NET library for reading, manipulating and writing Excel 2007+ (.xlsx, .xlsm) files. It aims to provide an intuitive and user-friendly interface to dealing with the underlying OpenXML API.</Description>
+    <Copyright>MIT</Copyright>
+    <PackageProjectUrl>https://github.com/ClosedXML/ClosedXML</PackageProjectUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageIcon>nuget-logo.png</PackageIcon>
+    <PackageIconUrl>https://raw.githubusercontent.com/ClosedXML/ClosedXML/develop/resources/logo/nuget-logo.png</PackageIconUrl>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);NU1605;CS1591</NoWarn>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Configurations>Debug;Release</Configurations>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\ClosedXML.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="..\resources\logo\nuget-logo.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.7.2" />
+    <PackageReference Include="ExcelNumberFormat" Version="1.0.10" />
+    <PackageReference Include="Fody" Version="6.3.0" PrivateAssets="all" />
+    <PackageReference Include="Janitor.Fody" Version="1.8.0" PrivateAssets="all" />
+    <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta16" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="2.0.0" />
+
+    <!-- SourceLink , see https://github.com/ctaggart/SourceLink -->
+    <PackageReference Include="SourceLink.Copy.PdbFiles" Version="2.8.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+</Project>
